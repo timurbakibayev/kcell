@@ -9,6 +9,8 @@ export const ACTION_COMPANY_SAVING = "company_saving";
 export const ACTION_COMPANY_SAVED = "compant_saved";
 export const ACTION_COMPANY_FAILED_TO_SAVE = "company_save_failed";
 
+export const ACTION_CHANGE_STATUS = "change_status";
+
 export const ACTION_JACTIONS_STARTED_LOADING = "jactions_loading";
 export const ACTION_JACTIONS_LOADED = "jactions_loaded";
 export const ACTION_JACTIONS_FAILED_TO_LOAD = "jactions_failed_to_load";
