@@ -22,6 +22,9 @@ import * as actionType from '../actionTypes';
 import logo from '../lte_logo_30.png'
 
 import Dashboard from './Dashboard';
+import Report from './Report';
+import Search from './Search';
+import Spam from './Spam';
 
 class _MainComponent extends Component {
     constructor(props) {
@@ -52,37 +55,26 @@ class _MainComponent extends Component {
         return (
             <div>
                 <Navbar color="light" light expand="md">
-                    <NavbarBrand href="/"><img src={logo}/>  SMS Sender</NavbarBrand>{this.props.location.pathname}
+                    <NavbarBrand href="#/"><img src={logo}/>  SMS Sender</NavbarBrand>{this.props.location.pathname}
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="/login">Login</NavLink>
+                                <NavLink href="#/search">Поиск</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/report">Report</NavLink>
+                                <NavLink href="#/report">Отчет</NavLink>
                             </NavItem>
-                            <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle nav caret>
-                                    Directories
-                                </DropdownToggle>
-                                <DropdownMenu right>
-                                    <DropdownItem>
-                                        Customers
-                                    </DropdownItem>
-                                    <DropdownItem>
-                                        Companies
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        Logout
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
+                            <NavItem>
+                                <NavLink href="#/spam">Рассылка</NavLink>
+                            </NavItem>
                         </Nav>
                     </Collapse>
                 </Navbar>
-                <Dashboard/>
+                {this.props.location.pathname === "/" && <Dashboard/>}
+                {this.props.location.pathname === "/report" && <Report/>}
+                {this.props.location.pathname === "/search" && <Search/>}
+                {this.props.location.pathname === "/spam" && <Spam/>}
             </div>
         );
     }

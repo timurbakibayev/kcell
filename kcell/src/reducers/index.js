@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import companiesReducer from './companies';
+import messagesReducer from './messages';
 import authReducer from './auth';
 import settingsReducer from './settings';
 import status from './status';
 // import { reducer as formReducer } from 'redux-form';
 
 const mainReducer = combineReducers({
-    companies: companiesReducer,
+    messages: messagesReducer,
     auth: authReducer,
     settings: settingsReducer,
     status: status,

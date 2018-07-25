@@ -22,8 +22,7 @@ function rand(min, max, num) {
     return rtn;
 }
 
-function data1() {
-    return {
+const data1 = {
         labels: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль"],
         datasets: [
             {
@@ -47,7 +46,6 @@ function data1() {
                 data: rand(32, 10000, 7)
             }
         ]
-    };
 }
 
 
@@ -56,8 +54,9 @@ class _dashboard extends React.Component {
         super(props);
         this.state = {
             modal: false,
-            smsText: "Здравствуйте, name! Это тестовое сообщение специально для Вас!",
-            smsSinglePhoneNo: "+77022162040",
+            text: "Здравствуйте, name! Это тестовое сообщение специально для Вас!",
+            phone: "+77022162040",
+            delivered: true,
         };
 
         this.toggle = this.toggle.bind(this);
@@ -72,8 +71,8 @@ class _dashboard extends React.Component {
     send_one_sms() {
         this.toggle();
         this.props.sendSMS([
-            {phone: this.state.smsSinglePhoneNo, name: "Имя"},
-            ], this.state.smsText);
+            {phone: this.state.phone, name: "Имя"},
+            ], this.state.text);
     }
 
     render() {
@@ -152,20 +151,20 @@ class _dashboard extends React.Component {
                 </div>
                 <div style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
                     <div style={{display: "flex", flexDirection: "column", marginRight: "30px"}}>
-                        <Input type="text" value = {this.state.smsSinglePhoneNo} style={{width: "100%",}}
-                            onChange = {(e) => {
-                                this.setState({smsSinglePhoneNo: e.target.value});
+                        <Input type="text" value = {this.state.phone} style={{width: "100%",}}
+                               onChange = {(e) => {
+                                this.setState({phone: e.target.value});
                             }}
                         />
-                        <textarea style={{width: "100%",}} rows={6} value={this.state.smsText}
+                        <textarea style={{width: "100%",}} rows={6} value={this.state.text}
                                   onChange={(e) => {
-                                      this.setState({smsText: e.target.value});
+                                      this.setState({text: e.target.value});
                                   }}
                         />
                         <Button onClick={this.send_one_sms.bind(this)}>SEND</Button>
                     </div>
                     <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
-                        <Bar data={data1()} width="600" height="250"/>
+                        <Bar data={data1} width="600" height="250"/>
                     </div>
                 </div>
                 {/*options={chartOptions}*/}
@@ -177,7 +176,7 @@ class _dashboard extends React.Component {
                     </ModalBody>
                     <ModalFooter>
                         <Button color={this.props.progress==100?"primary":"secondary"}
-                                onClick={this.toggle}>{this.props.progress==100?"ОК":"СТОП"}</Button>
+                                onClick={this.toggle}>{this.props.progress==100?"ОК":"ОТМЕНА"}</Button>
                     </ModalFooter>
                 </Modal>
             </div>
@@ -194,8 +193,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     sendSMS: actions.sendSMS,
-    // refreshSettings: actionsSettings.refreshSettings,
-    // submitSetting: actionsSettings.submitSetting,
 };
 
 const Dashboard = connect(

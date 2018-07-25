@@ -1,6 +1,6 @@
-export const ACTION_COMPANIES_STARTED_LOADING = "companies_loading";
-export const ACTION_COMPANIES_LOADED = "companies_loaded";
-export const ACTION_COMPANIES_FAILED_TO_LOAD = "companies_failed_to_load";
+export const ACTION_MESSAGES_STARTED_SENDING = "messages_sending";
+export const ACTION_MESSAGES_SENT = "messages_loaded";
+export const ACTION_MESSAGES_FAILED_TO_LOAD = "messages_failed_to_load";
 export const ACTION_COMPANY_NEW_CREATING = "company_new_creating";
 export const ACTION_COMPANY_NEW_CREATED = "compant_new_created";
 export const ACTION_COMPANY_NEW_FAILED = "company_new_failed";

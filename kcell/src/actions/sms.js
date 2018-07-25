@@ -9,11 +9,7 @@ function template(text, recepient) {
     return text.replace("name", recepient.name);
 }
 
-export const sendSMS = (recipientsList, text) => async (dispatch, getState) => {
-    if (getState().companies.isLoading) {
-        return Promise.resolve();
-    }
-
+export const sendSMS = (messagesList, text) => async (dispatch, getState) => {
     dispatch({
         type: actionTypes.ACTION_CHANGE_STATUS,
         data: "Подготовка к отправке...",
@@ -21,15 +17,21 @@ export const sendSMS = (recipientsList, text) => async (dispatch, getState) => {
     });
 
     let i=0;
-    for (const recipient of recipientsList) {
+    for (const message of messagesList) {
         dispatch({
             type: actionTypes.ACTION_CHANGE_STATUS,
-            data: "Отправляется сообщение на номер: " + recipient.phone + "\n \n" + template(text, recipient),
-            progress: recipientsList==0?0:(i/recipientsList.length*100),
+            data: "Отправляется сообщение на номер: " + message.phone + "\n \n" + template(text, message),
+            progress: messagesList.length===0?0:(i/messagesList.length*100),
+        });
+        message.text = text;
+        message.delivered = true;
+        dispatch({
+            type: actionTypes.ACTION_MESSAGES_SENT,
+            data: message,
         });
         i++;
 
-        await wait(recipientsList.length <= 1? 2000: 700);
+        await wait(messagesList.length <= 1? 2000: 700);
     }
 
     dispatch({
