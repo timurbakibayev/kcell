@@ -21,9 +21,9 @@ export const sendSMS = (messagesList, text) => async (dispatch, getState) => {
         dispatch({
             type: actionTypes.ACTION_CHANGE_STATUS,
             data: "Отправляется сообщение на номер: " + message.phone + "\n \n" + template(text, message),
-            progress: messagesList.length===0?0:(i/messagesList.length*100),
+            progress: messagesList.length===0?0:(Math.round(i/messagesList.length*100)),
         });
-        message.text = text;
+        message.text = template(text, message);
         message.delivered = true;
         dispatch({
             type: actionTypes.ACTION_MESSAGES_SENT,
@@ -31,12 +31,12 @@ export const sendSMS = (messagesList, text) => async (dispatch, getState) => {
         });
         i++;
 
-        await wait(messagesList.length <= 1? 2000: 700);
+        await wait(messagesList.length <= 1? 2000: 300);
     }
 
     dispatch({
         type: actionTypes.ACTION_CHANGE_STATUS,
-        data: "Готово! Перейдите в отчеты для просмотра отправленных сообщений.",
+        data: "Готово! Перейдите в поиск для просмотра отправленных сообщений.",
         progress: 100,
     });
 
